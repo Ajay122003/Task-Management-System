@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Management</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="{% url 'task_list' %}">
+        <i class="bi bi-list-check me-1"></i> Task<span class="text-warning">Management</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          {% if user.is_authenticated %}
+            <li class="nav-item me-2">
+              <span class="navbar-text text-white me-2">Hi, {{ user.username }} </span>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'logout' %}" class="btn btn-outline-light btn-sm">Logout</a>
+            </li>
+          {% else %}
+            <li class="nav-item me-2">
+              <a href="{% url 'login' %}" class="btn btn-outline-light btn-sm">Login</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'register' %}" class="btn btn-outline-light btn-sm">Register</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Alert Messages -->
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Main Content -->
+  {% block content %}
+  {% endblock %}
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; {{ now|date:"Y" }} TaskManager. Built with ❤️ using Django & Bootstrap.</p>
+  </footer>
+
+  <style>
+    .navbar {
+  background: linear-gradient(135deg, #007bff, #00bcd4);
+  transition: all 0.3s ease;
+}
+
+
+
+   body {
+      background-color:white;
+      min-height: 120vh;
+      display: flex;
+      flex-direction: column;
+    }
+    footer {
+      margin-top: auto;
+      background: #212529;
+      color: #bbb;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 0.9rem;
+    }
+  </style>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
