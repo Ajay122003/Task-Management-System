@@ -126,3 +126,12 @@ def delete_task(request, task_id):
     messages.success(request, 'Task deleted successfully!')
     return redirect('task_list')
 
+@login_required
+def delete_account(request):
+    user=request.user
+    if request.method == 'POST':
+       user.delete()
+       messages.success(request, 'Deleted your account')
+       return redirect('register')
+    return render(request, 'task_list.html')
+
