@@ -10,6 +10,19 @@ from .forms import TaskForm
 
 def home(request):
     return render(request, 'task_list.html')
+
+# ---------------------- ADMIN DASHBOARD ----------------------
+@login_required
+def admin_dashboard(request):
+    if not request.user.is_superuser:
+        messages.error(request, "Access denied! Admins only.")
+        return redirect('admin_dashboard')
+    
+    # Admin can see all tasks
+    tasks = Task.objects.all()
+    users = User.objects.all()
+    return render(request, 'admin_dashboard.html', {'tasks': tasks, 'users': users})
+
 # ---------------------- REGISTER ----------------------
 def register(request):
     if request.method == 'POST':
@@ -42,8 +55,12 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            messages.success(request, f'Welcome back {user.username}!')
-            return redirect('task_list')
+            if user.is_superuser:
+                messages.success(request, f'Welcome Admin {user.username}!')
+                return redirect('admin_dashboard')
+            else:
+                messages.success(request, f'Welcome back {user.username}!')
+                return redirect('task_list')
         else:
             messages.error(request, 'Invalid username or password')
 
