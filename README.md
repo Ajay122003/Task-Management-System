@@ -8,6 +8,7 @@ Each user has their **own personal dashboard**, ensuring privacy and smooth task
 ---
 
 ##  Features
+-  **Admin ** – Register, Login, Logout, visit tasks and users
 -  **User Authentication** – Register, Login, Logout  
 -  **Task CRUD Operations** – Add, Edit, Delete tasks  
 -  **Mark as Completed / Pending**  
@@ -25,6 +26,7 @@ Each user has their **own personal dashboard**, ensuring privacy and smooth task
 | **Backend** | Django (Python) |
 | **Database** | SQLite3 |
 | **Authentication** | Django Built-in User Model |
+
 
 
 
