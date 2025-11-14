@@ -17,7 +17,7 @@ def admin_dashboard(request):
     if not request.user.is_superuser:
         messages.error(request, "Access denied! Admins only.")
         return redirect('admin_dashboard')
-    l
+    
     # Admin can see all tasks
     tasks = Task.objects.all()
     users = User.objects.all()
