@@ -17,7 +17,7 @@ def admin_dashboard(request):
     if not request.user.is_superuser:
         messages.error(request, "Access denied! Admins only.")
         return redirect('admin_dashboard')
-    
+    l
     # Admin can see all tasks
     tasks = Task.objects.all()
     users = User.objects.all()
@@ -134,4 +134,23 @@ def delete_account(request):
        messages.success(request, 'Deleted your account')
        return redirect('register')
     return render(request, 'task_list.html')
+
+
+# def login_view(request):
+#     if request.method== "POST":
+#         username=request.POST.get('username')
+#         password=request.POST.get('password')
+#         user = authenticate (request, username==username ,password==password)
+
+#         if user is not None:
+#             if user.is_superuser:
+#                 messages.success(request,f'welcoome {user.username}')
+#                 return redirect('admin')
+#             else :
+#                 messages.success(request,f'welcome{user.username}')
+#                 return redirect('user')
+#         else:
+#             messages.error('invaild')
+#     return render("login")
+
 
